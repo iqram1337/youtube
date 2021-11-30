@@ -1,0 +1,46 @@
+#include <LiquidCrystal.h>
+
+LiquidCrystal lcd(10,9,4,3,2,1);
+
+int logic_state = 0;
+boolean LS_status;
+
+int led = 13;
+
+//int vibsens = 7;
+boolean vibsens_status;
+
+void setup() {
+  pinMode(logic_state, INPUT);
+  pinMode(led, OUTPUT);
+
+  lcd.begin(16, 2); //wajib untuk lcd
+  
+  lcd.setCursor(0,0);
+  lcd.print("SEISMOMETER");
+
+  lcd.setCursor(0,1);
+  lcd.print("SEDERHANA");
+  delay(500);
+}
+
+void loop() {
+  LS_status = digitalRead(logic_state);
+
+  if (LS_status == 1){
+    lcd.clear();
+    digitalWrite(led, HIGH);
+
+    lcd.setCursor(0,0);
+    lcd.print("GEMPA TERDETEKSI!!!");
+    delay(300);
+  } else {
+    lcd.clear();
+    digitalWrite(led, LOW);
+
+    lcd.setCursor(0,0);
+    lcd.print("KONDISI AMAN");
+    delay(300);
+  }
+
+}
